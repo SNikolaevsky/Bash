@@ -6,23 +6,21 @@ touch short_result.log
 touch full_result.log
 touch result.html
 
-git clone git@192.168.5.240:solutions/jenkins_build_job.git
+git clone git@<ipaddress>:solutions/jenkins_build_job.git
 
 dash_surv="surv"
 
-linear_uat_url="http://192.168.172.35:8088/web_dashboard"
+linear_uat_url="http://<ip>:<port>web_dashboard"
 
 mkdir results
 cd results
-#mkdir soldemo_prod
-#mkdir soldemo_uat
 #mkdir selenium_test
-mkdir linear_uat
+mkdir <clientname>
 cd ..
 
 # setting dates
 
-date_start=$(date "2014-11-06  00:00:00.000")
+date_start=$(date "2018-11-06  00:00:00.000")
 #date_start=$(date "+%Y-%m-%d %H:%M:%S.000" -d "5 days ago")
 date_end=$(date "+%Y-%m-%d %H:%M:%S.000")
 
@@ -39,8 +37,8 @@ sleep 5
 
 # exec scripts
 docker exec -i web_dashboard_check_modal_errors bash -c "\
-python3 /scripts/check_modal_error.py -u $linear_uat_url -d $dash_surv -n linear-uat -p passlinearword -s '$date_start' -e '$date_end' >> /results/linear_uat/result.log; \
-cp select_alert.png /results/linear_uat; \
+python3 /scripts/check_modal_error.py -u $client_url -d $dash_surv -n <clientname> -p passlinearword -s '$date_start' -e '$date_end' >> /results/<clientname>/result.log; \
+cp select_alert.png /results/<clientname>; \
 
 
 # parsing results
